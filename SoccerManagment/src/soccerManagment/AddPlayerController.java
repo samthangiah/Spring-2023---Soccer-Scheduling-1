@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class AddPlayerAction {
+public class AddPlayerController {
     
     public static void addPlayer(int playerId, String firstName, String lastName, Date birthdate, String gender, int skillLevel, int seasonsPlayed, boolean isRegistered, boolean isAssigned) {
         Connection connection = null;
@@ -18,7 +18,7 @@ public class AddPlayerAction {
                 return;
             }
 
-            System.out.println("Connection established.");
+            //System.out.println("Connection established.");
             
             // Insert player information into the PlayerInformation table
             String sql = "INSERT INTO PlayerInformation (PlayerId, FirstName, LastName, Birthdate, Gender, SkillLevel, SeasonsPlayed, Registered, Assigned) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";

@@ -1,6 +1,6 @@
 package interfaceGui;
 
-import java.awt.BorderLayout;
+//main menu interface for other buttons to be selected from 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -11,11 +11,14 @@ import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import soccerManagment.DatabaseConnection;
 
 public class MainMenu extends JFrame {
 
-    private JPanel contentPane;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
 
     /**
      * Launch the application.
