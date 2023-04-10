@@ -42,6 +42,8 @@ public class PlayerSearch extends JFrame {
         lastNameField.setBounds(100, 10, 200, 25);
         contentPane.add(lastNameField);
 
+        //Button for playerSearch
+        //Hidden for automatic search/update
         searchButton = new JButton("Search");
         searchButton.setBounds(310, 10, 100, 25);
         contentPane.add(searchButton);
