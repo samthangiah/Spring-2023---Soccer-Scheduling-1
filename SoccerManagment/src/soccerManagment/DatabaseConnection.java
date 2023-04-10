@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    private static final String URL = "jdbc:ucanaccess://databaseFolder/soccerDB3.mdb";
+    private static final String URL = "jdbc:ucanaccess://databaseFolder/soccerDB4.mdb";
 
     private DatabaseConnection() {}
 
@@ -13,7 +13,7 @@ public class DatabaseConnection {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(URL);
-            System.out.println("Connection established.");
+           // System.out.println("Connection established.");
         } catch (Exception e) {
             System.err.println("Error connecting to the database.");
             e.printStackTrace();
