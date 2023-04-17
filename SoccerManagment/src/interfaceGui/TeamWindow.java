@@ -61,6 +61,18 @@ public class TeamWindow extends JFrame {
         soccerTeamsTableScrollPane = new JScrollPane(soccerTeamsTable);
         rightPanel.add(soccerTeamsTableScrollPane, BorderLayout.CENTER);
 
+        
+        Timer timer = new Timer(2000, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    displaySoccerTeams(connection);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        timer.start();
+        
         btnTab1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 rightPanel.remove(soccerTeamsTableScrollPane);
@@ -117,6 +129,7 @@ public class TeamWindow extends JFrame {
     }
     
     private void displaySoccerTeams(Connection connection) throws SQLException {
+        soccerTeamsTableModel.setRowCount(0); // Clear the table
         PreparedStatement statement = null;
         ResultSet resultSet = null;
 

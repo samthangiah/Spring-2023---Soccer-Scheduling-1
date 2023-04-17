@@ -12,9 +12,12 @@ import java.util.Date;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
 import soccerManagment.DatabaseConnection;
 import interfaceGui.AddPlayerForm;
 import interfaceGui.PlayerSearch;
+import interfaceGui.ResetDatabase;
+
 
 public class PlayersList extends JFrame {
 
@@ -22,7 +25,6 @@ public class PlayersList extends JFrame {
     private JTable table;
     private JScrollPane scrollPane;
     private DefaultTableModel model;
-    private JTabbedPane tabbedPane;
 
     public PlayersList() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,6 +34,15 @@ public class PlayersList extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(new BorderLayout(0, 0));
+
+        // Add a JToolBar at the top of the contentPane
+        JToolBar topToolBar = new JToolBar();
+        topToolBar.setFloatable(false);
+        contentPane.add(topToolBar, BorderLayout.NORTH);
+
+        // Add the "Team Window" button to the topToolBar
+        JButton btnTeamWindow = new JButton("Team Window");
+        topToolBar.add(btnTeamWindow);
 
         // Create left panel with tabs
         JPanel leftPanel = new JPanel();
@@ -57,7 +68,7 @@ public class PlayersList extends JFrame {
         tablePanel.setLayout(new BorderLayout());
         table = new JTable();
         scrollPane = new JScrollPane(table);
-        model = new DefaultTableModel(new String[] { "Player ID", "First Name", "Last Name", "Birthdate", "Gender", "Skill Level", "Seasons Played", "Registered", "Assigned", "Team ID" }, 0);
+        model = new DefaultTableModel(new String[]{"Player ID", "First Name", "Last Name", "Birthdate", "Gender", "Skill Level", "Seasons Played", "Registered", "Assigned", "Team ID"}, 0);
         table.setModel(model);
         tablePanel.add(scrollPane, BorderLayout.CENTER);
         rightPanel.add(tablePanel, "playerList");
@@ -70,6 +81,14 @@ public class PlayersList extends JFrame {
         PlayerSearch playerSearch = new PlayerSearch();
         rightPanel.add(playerSearch, "playerSearch");
 
+        // Add TeamWindow instance to the rightPanel
+        //Remove to edit
+        TeamWindow teamWindow = new TeamWindow();
+        rightPanel.add(teamWindow.getContentPane(), "teamWindow");
+        
+        JButton btnResetDatabase = new JButton("Reset Database");
+        topToolBar.add(btnResetDatabase);
+
         // Set up tab button actions
         btnPlayerList.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -77,18 +96,29 @@ public class PlayersList extends JFrame {
                 cardLayout.show(rightPanel, "playerList");
             }
         });
-
         btnAddPlayer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CardLayout cardLayout = (CardLayout) rightPanel.getLayout();
                 cardLayout.show(rightPanel, "addPlayerForm");
             }
         });
-
         btnSearch.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CardLayout cardLayout = (CardLayout) rightPanel.getLayout();
                 cardLayout.show(rightPanel, "playerSearch");
+            }
+        });
+
+        btnTeamWindow.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CardLayout cardLayout = (CardLayout) rightPanel.getLayout();
+                cardLayout.show(rightPanel, "teamWindow");
+            }
+        });
+        
+        btnResetDatabase.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ResetDatabase.resetPlayerStatus();
             }
         });
 
@@ -100,6 +130,7 @@ public class PlayersList extends JFrame {
         });
         timer.start();
     }
+
     public void updateTable() {
         model.setRowCount(0); // Clear the table
 
@@ -114,12 +145,12 @@ public class PlayersList extends JFrame {
                 String lastName = resultSet.getString("LastName");
                 Date birthdate = resultSet.getDate("Birthdate");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                String formattedBirthdate = dateFormat.format(birthdate);                String gender = resultSet.getString("Gender");
+                String formattedBirthdate = dateFormat.format(birthdate);
+                String gender = resultSet.getString("Gender");
                 int skillLevel = resultSet.getInt("SkillLevel");
                 int seasonsPlayed = resultSet.getInt("SeasonsPlayed");
                 boolean isRegistered = resultSet.getBoolean("Registered");
                 boolean isAssigned = resultSet.getBoolean("Assigned");
-
                 int teamID = resultSet.getInt("TeamID");
 
                 model.addRow(new Object[]{playerId, firstName, lastName, formattedBirthdate, gender, skillLevel, seasonsPlayed, isRegistered, isAssigned, teamID});
