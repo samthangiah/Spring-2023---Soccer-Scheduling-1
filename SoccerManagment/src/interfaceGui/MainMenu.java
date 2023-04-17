@@ -11,18 +11,13 @@ import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import interfaceGui.SoccerLeague;
 
 public class MainMenu extends JFrame {
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
 
-    /**
-     * Launch the application.
-     */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -35,7 +30,6 @@ public class MainMenu extends JFrame {
             }
         });
     }
-
 
     public MainMenu() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -76,17 +70,28 @@ public class MainMenu extends JFrame {
         btnPlayerButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
         btnPlayerButton.setBounds(226, 256, 312, 48);
         contentPane.add(btnPlayerButton);
-        
 
-JButton btnTeamButton = new JButton("Team Button");
-btnTeamButton.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-        TeamWindow teamWindow = new TeamWindow();
-        teamWindow.setVisible(true);
-    }
-});
-btnTeamButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
-btnTeamButton.setBounds(227, 328, 312, 48);
-contentPane.add(btnTeamButton);
+        JButton btnTeamButton = new JButton("Team Button");
+        btnTeamButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                TeamWindow teamWindow = new TeamWindow();
+                teamWindow.setVisible(true);
+            }
+        });
+        btnTeamButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        btnTeamButton.setBounds(227, 328, 312, 48);
+        contentPane.add(btnTeamButton);
+
+        // Add a new JButton for League List
+        JButton btnLeagueList = new JButton("League List");
+        btnLeagueList.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SoccerLeague leagueList = new SoccerLeague();
+                leagueList.setVisible(true);
+            }
+        });
+        btnLeagueList.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        btnLeagueList.setBounds(227, 400, 312, 48);
+        contentPane.add(btnLeagueList);
     }
 }

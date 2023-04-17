@@ -18,16 +18,22 @@ public class AddTeamForm {
         connection = DatabaseConnection.openConnection();
         
         mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(0, 2));
         
         JLabel coachLabel = new JLabel("Coach:");
+        coachLabel.setBounds(0, 16, 87, 27);
         JTextField coachField = new JTextField();
+        coachField.setBounds(45, 20, 225, 19);
         JLabel assistantCoachLabel = new JLabel("Assistant Coach:");
+        assistantCoachLabel.setBounds(0, 38, 225, 60);
         JTextField assistantCoachField = new JTextField();
+        assistantCoachField.setBounds(90, 59, 180, 19);
         JLabel teamNameLabel = new JLabel("Team Name:");
+        teamNameLabel.setBounds(0, 88, 225, 60);
         JTextField teamNameField = new JTextField();
+        teamNameField.setBounds(91, 109, 179, 19);
         
         JButton submitButton = new JButton("Submit");
+        submitButton.setBounds(10, 230, 225, 60);
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -42,6 +48,7 @@ public class AddTeamForm {
                 }
             }
         });
+        mainPanel.setLayout(null);
         
         mainPanel.add(coachLabel);
         mainPanel.add(coachField);
@@ -49,9 +56,15 @@ public class AddTeamForm {
         mainPanel.add(assistantCoachField);
         mainPanel.add(teamNameLabel);
         mainPanel.add(teamNameField);
-        mainPanel.add(new JLabel(""));
-        mainPanel.add(new JLabel(""));
-        mainPanel.add(new JLabel(""));
+        JLabel label = new JLabel("");
+        label.setBounds(0, 180, 225, 60);
+        mainPanel.add(label);
+        JLabel label_1 = new JLabel("");
+        label_1.setBounds(225, 180, 225, 60);
+        mainPanel.add(label_1);
+        JLabel label_2 = new JLabel("");
+        label_2.setBounds(0, 240, 225, 60);
+        mainPanel.add(label_2);
         mainPanel.add(submitButton);
     }
 
