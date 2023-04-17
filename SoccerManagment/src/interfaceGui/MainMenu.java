@@ -76,5 +76,17 @@ public class MainMenu extends JFrame {
         btnPlayerButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
         btnPlayerButton.setBounds(226, 256, 312, 48);
         contentPane.add(btnPlayerButton);
+        
+
+JButton btnTeamButton = new JButton("Team Button");
+btnTeamButton.addActionListener(new ActionListener() {
+    public void actionPerformed(ActionEvent e) {
+        TeamWindow teamWindow = new TeamWindow();
+        teamWindow.setVisible(true);
+    }
+});
+btnTeamButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
+btnTeamButton.setBounds(227, 328, 312, 48);
+contentPane.add(btnTeamButton);
     }
 }

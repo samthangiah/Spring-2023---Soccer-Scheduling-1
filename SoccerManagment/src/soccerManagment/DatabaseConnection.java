@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    private static final String URL = "jdbc:ucanaccess://databaseFolder/soccerDB4.mdb";
+    private static final String URL = "jdbc:ucanaccess://databaseFolder/soccerDB6.mdb";
 
     private DatabaseConnection() {}
 
