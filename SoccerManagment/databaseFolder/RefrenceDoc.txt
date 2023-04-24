@@ -1,0 +1,38 @@
+Simple date format
+https://www.geeksforgeeks.org/simpledateformat-parse-method-in-java-with-examples/
+https://stackoverflow.com/questions/55588323/safe-simpledateformat-parsing
+https://stackoverflow.com/questions/10413350/date-conversion-from-string-to-sql-date-in-java-giving-different-output
+https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+
+Jpanels
+https://docs.oracle.com/javase/tutorial/uiswing/components/panel.html
+https://cs.unibg.it/scandurra/material/INF3B_1112/windowbuilderTutorial.pdf
+Cards
+https://docs.oracle.com/javase/tutorial/uiswing/layout/card.html
+Combo box
+https://docs.oracle.com/javase/7/docs/api/javax/swing/DefaultComboBoxModel.html
+https://www.codejava.net/java-se/swing/jcombobox-basic-tutorial-and-examples
+
+https://www.coursehero.com/file/prokhni/Example-create-a-query-that-outputs-the-player-names-team-name-and-the-address/
+https://studylib.net/doc/25728561/javanotesforprofessionals-
+http://www.java2s.com/Tutorials/Java/Swing_How_to/JTree/Add_data_to_Tree_Model_in_a_Timer.htm
+https://stackoverflow.com/questions/23013432/using-like-in-sql-server-to-identify-strings
+https://www.youtube.com/watch?v=ml2i4XSe9lA
+https://docs.oracle.com/javase/tutorial/uiswing/misc/printtext.html
+
+String modification
+https://www.baeldung.com/java-remove-trailing-characters
+https://www.geeksforgeeks.org/stringbuilder-class-in-java-with-examples/
+Layouts 
+https://chortle.ccsu.edu/java5/notes/chap56/ch56_9.html
+https://docs.oracle.com/javase/7/docs/api/java/awt/BorderLayout.html
+https://www.geeksforgeeks.org/java-awt-borderlayout-class/
+https://www.tabnine.com/code/java/methods/java.awt.BorderLayout/%3Cinit%3E
+https://web.mit.edu/java_v1.1.6/www/api/java.awt.BorderLayout.html
+https://docs.oracle.com/javase/tutorial/uiswing/layout/gridbag.html
+https://docs.oracle.com/javase/7/docs/api/java/awt/GridBagConstraints.html
+https://learn.microsoft.com/en-us/dotnet/api/system.string.split?view=net-8.0
+
+Mapping for multiple tables 
+https://gist.github.com/FigT/f5ba0d14a2d4092a0b3745185cc1190e
+https://www.baeldung.com/java-hashmap
