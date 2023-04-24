@@ -82,6 +82,12 @@ public class EditLeagueForm extends JPanel {
                 int minPlayers = Integer.parseInt(minPlayersTextField.getText());
                 int maxPlayers = Integer.parseInt(maxPlayersTextField.getText());
 
+                //Fixing min and max players to not be negative
+                if (minPlayers < 0 || maxPlayers < 0) {
+                    JOptionPane.showMessageDialog(null, "Min and max players must be non-negative integers.");
+                    return;
+                }
+                
                 try {
                     Connection connection = DatabaseConnection.openConnection();
 
@@ -118,6 +124,24 @@ public class EditLeagueForm extends JPanel {
                             updateStatement.setInt(6, maxPlayers);
                             updateStatement.setString(7, originalLeagueName);
                             int rowsUpdated = updateStatement.executeUpdate();
+                            
+                            if (minPlayers > 0) {
+                            	// Refresh the search results
+                                //JOptionPane.showMessageDialog(null, "League updated successfully.");
+                                leagueSearch.refreshSearchResults(); 
+                                
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Failed to update league because of Min players being negative.");
+                            }
+                            
+                            if (maxPlayers > 0) {
+                            	// Refresh the search results
+                                //JOptionPane.showMessageDialog(null, "League updated successfully.");
+                                leagueSearch.refreshSearchResults(); 
+                                
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Failed to update league because of Max players being negative.");
+                            }
 
                             if (rowsUpdated > 0) {
                             	// Refresh the search results
