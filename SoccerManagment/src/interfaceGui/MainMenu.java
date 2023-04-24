@@ -1,6 +1,8 @@
 package interfaceGui;
 
 //main menu interface for other buttons to be selected from 
+//not used due to interface chagne
+//used for test
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,6 +14,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import interfaceGui.SoccerLeague;
+import interfaceGui.LeagueFormReport;
 
 public class MainMenu extends JFrame {
 
@@ -82,7 +85,6 @@ public class MainMenu extends JFrame {
         btnTeamButton.setBounds(227, 328, 312, 48);
         contentPane.add(btnTeamButton);
 
-        // Add a new JButton for League List
         JButton btnLeagueList = new JButton("League List");
         btnLeagueList.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -93,5 +95,21 @@ public class MainMenu extends JFrame {
         btnLeagueList.setFont(new Font("Tahoma", Font.PLAIN, 18));
         btnLeagueList.setBounds(227, 400, 312, 48);
         contentPane.add(btnLeagueList);
+
+        JButton btnSetUpLeague = new JButton("Set Up League");
+        btnSetUpLeague.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                LeagueFormReport setUpLeagueForm = new LeagueFormReport();
+                JFrame setUpLeagueFrame = new JFrame("Set Up League");
+                setUpLeagueFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                setUpLeagueFrame.getContentPane().add(setUpLeagueForm);
+                setUpLeagueFrame.pack();
+                setUpLeagueFrame.setLocationRelativeTo(null);
+                setUpLeagueFrame.setVisible(true);
+            }
+        });
+        btnSetUpLeague.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        btnSetUpLeague.setBounds(227, 472, 312, 48);
+        contentPane.add(btnSetUpLeague);
     }
 }

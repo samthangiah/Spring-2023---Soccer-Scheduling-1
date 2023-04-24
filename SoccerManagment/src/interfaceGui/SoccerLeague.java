@@ -38,14 +38,17 @@ public class SoccerLeague extends JFrame {
 
         // Create left panel with tabs
         JPanel leftPanel = new JPanel();
-        leftPanel.setLayout(new GridLayout(2, 1));
+        leftPanel.setLayout(new GridLayout(3, 1));
         contentPane.add(leftPanel, BorderLayout.WEST);
 
         JButton btnSoccerLeagues = new JButton("Soccer Leagues");
         leftPanel.add(btnSoccerLeagues);
 
-        JButton btnOther = new JButton("Other");
-        leftPanel.add(btnOther);
+        JButton btnAddL = new JButton("Add League");
+        leftPanel.add(btnAddL);
+
+        JButton btnNewView = new JButton("Search");
+        leftPanel.add(btnNewView);
 
         // Create right panel with card layout
         JPanel rightPanel = new JPanel();
@@ -57,17 +60,17 @@ public class SoccerLeague extends JFrame {
         tablePanel.setLayout(new BorderLayout());
         table = new JTable();
         scrollPane = new JScrollPane(table);
-        model = new DefaultTableModel(new String[]{"LeagueName", "LowDBCutOff", "HighDBCutOff", "NumCoaches"}, 0);
+        model = new DefaultTableModel(new String[]{"LeagueName", "HighBDCutOff", "LowBDCutOff", "NumCoaches", "MinPlayers", "MaxPlayers", "TeamList"}, 0);
         table.setModel(model);
         tablePanel.add(scrollPane, BorderLayout.CENTER);
         rightPanel.add(tablePanel, "soccerLeagues");
 
         // Create other panel and add it to the right panel
-        JPanel otherPanel = new JPanel();
-        otherPanel.setLayout(new BorderLayout());
-        JLabel otherLabel = new JLabel("This is the other panel");
-        otherPanel.add(otherLabel, BorderLayout.CENTER);
-        rightPanel.add(otherPanel, "other");
+        JPanel addLeaguePanel = new JPanel();
+        addLeaguePanel.setLayout(new BorderLayout());
+        JLabel addLeagueLabel = new JLabel("This is the other panel");
+        addLeaguePanel.add(addLeagueLabel, BorderLayout.CENTER);
+        rightPanel.add(addLeaguePanel, "other");
 
         // Set up tab button actions
         btnSoccerLeagues.addActionListener(new ActionListener() {
@@ -76,7 +79,8 @@ public class SoccerLeague extends JFrame {
                 cardLayout.show(rightPanel, "soccerLeagues");
             }
         });
-        btnOther.addActionListener(new ActionListener() {
+        //Add  League action
+        btnAddL.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 AddLeagueForm addLeagueForm = new AddLeagueForm();
                 rightPanel.add(addLeagueForm, "addLeague");
@@ -84,8 +88,16 @@ public class SoccerLeague extends JFrame {
                 cardLayout.show(rightPanel, "addLeague");
             }
         });
-
-        // Update the table every 2 seconds (2000 milliseconds)
+        //League search action
+        btnNewView.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                LeagueSearch leagueSearchPanel = new LeagueSearch(rightPanel);
+                rightPanel.add(leagueSearchPanel, "leagueSearch");
+                CardLayout cardLayout = (CardLayout) rightPanel.getLayout();
+                cardLayout.show(rightPanel, "leagueSearch");
+            }
+        });
+        //Auto update to update the table 
         Timer timer = new Timer(2000, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 updateTable();
@@ -98,6 +110,7 @@ public class SoccerLeague extends JFrame {
         model.setRowCount(0); 
 
         try {
+        	//Display of all leagues present
             Connection connection = DatabaseConnection.openConnection();
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM SoccerLeague");
             ResultSet resultSet = statement.executeQuery();
@@ -107,12 +120,16 @@ public class SoccerLeague extends JFrame {
                 Date lowDBCutOff = resultSet.getDate("LowBDCutOff");
                 Date highDBCutOff = resultSet.getDate("HighBDCutOff");
                 int numCoaches = resultSet.getInt("NumCoaches");
+                int minPlayers = resultSet.getInt("MinPlayers");
+                int maxPlayers = resultSet.getInt("MaxPlayers");
+                // Retrieve the TeamList column from the ResultSet
+                String teamList = resultSet.getString("TeamList"); 
 
                 // Format the dates using a SimpleDateFormat object
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
                 // Add a new row to the table model with the retrieved data
-                model.addRow(new Object[]{leagueName, dateFormat.format(lowDBCutOff), dateFormat.format(highDBCutOff), numCoaches});
+                model.addRow(new Object[]{leagueName, dateFormat.format(highDBCutOff), dateFormat.format(lowDBCutOff), numCoaches, minPlayers, maxPlayers, teamList});
             }
 
             resultSet.close();

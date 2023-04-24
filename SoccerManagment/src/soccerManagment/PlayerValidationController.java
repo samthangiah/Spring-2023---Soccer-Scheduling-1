@@ -4,9 +4,9 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
 import interfaceGui.TeamWindow;
 
+//Used to ensure player information is as expected for database table
 public class PlayerValidationController {
 
 	public static List<String> validatePlayerData(Set<Integer> teamIds, String firstName, String lastName, Date birthdate, String gender, int skillLevel, int seasonsPlayed, boolean isRegistered, boolean isAssigned, String address, String city, String state, int zipCode, int carPool, String league, String jerseySize, String shortSize, String sockSize, String paid, String medicalInsurance, String medicalConcerns, String adultLastName, String adultFirstName, String adultPhone1, String adultPhone2, String adultEmail, String secondAdultLastName, String secondAdultFirstName, String secondAdultPhone1, String secondAdultPhone2, String secondAdultEmail, int TeamID) {
@@ -81,11 +81,7 @@ public class PlayerValidationController {
         if (medicalInsurance == null || medicalInsurance.trim().isEmpty()) {
         	errors.add("Error: Medical insurance cannot be empty.");
         }
-        /*
-        if (medicalConcerns == null) {
-        	errors.add("Error: Medical concerns cannot be null.");
-        }
-*/
+       
         if (adultLastName == null || adultLastName.trim().isEmpty()) {
         	errors.add("Error: Adult last name cannot be empty.");
         }

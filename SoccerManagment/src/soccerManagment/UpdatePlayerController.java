@@ -9,10 +9,11 @@ import java.sql.Statement;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.swing.JOptionPane;
 import soccerManagment.DatabaseConnection;
 
+//Used by edit player form 
+//Repetitive action taken by 
 public class UpdatePlayerController {
 
     public static void updatePlayerData(int playerId, String firstName, String lastName, String gender, String birthdate, int skillLevel, String seasonsPlayed, String assigned, String registered, String address, String city, String state, int zipCode, int carPool, String league, String jerseySize, String shortSize, String sockSize, String paid, String medicalInsurer, String medicalConcerns, String adultLastName, String adultFirstName, String adultPhone1, String adultPhone2, String adultEmail, String secondAdultLastName, String secondAdultFirstName, String secondAdultPhone1, String secondAdultPhone2, String secondAdultEmail, int teamId) {
@@ -22,7 +23,7 @@ public class UpdatePlayerController {
         // Call the validatePlayerData method to check for errors
         List<String> errors = PlayerValidationController.validatePlayerData(getAllTeamIds(), firstName, lastName, Date.valueOf(birthdate), gender, skillLevel, Integer.parseInt(seasonsPlayed), Boolean.parseBoolean(registered), Boolean.parseBoolean(assigned), address, city, state, zipCode, carPool, league, jerseySize, shortSize, sockSize, paid, medicalInsurer, medicalConcerns, adultLastName, adultFirstName, adultPhone1, adultPhone2, adultEmail, secondAdultLastName, secondAdultFirstName, secondAdultPhone1, secondAdultPhone2, secondAdultEmail, teamId);
 
-        // If no errors are found, execute the update operation
+        // If no errors are found update
         if (errors.isEmpty()) {
             try {
                 connection = DatabaseConnection.openConnection();

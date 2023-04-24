@@ -7,10 +7,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+//Used for adding players to correct table in database 
+//used by add player form 
 public class AddPlayerController {
     
     public static void addPlayer(String firstName, String lastName, Date birthdate, String gender, int skillLevel, int seasonsPlayed, boolean isRegistered, boolean isAssigned, String address, String city, String state, int zipCode, int carPool, String league, String jerseySize, String shortSize, String sockSize, String paid, String medicalInsurance, String medicalConcerns, String adultLastName, String adultFirstName, String adultPhone1, String adultPhone2, String adultEmail, String secondAdultLastName,String secondAdultFirstName,String secondAdultPhone1, String secondAdultPhone2, String secondAdultEmail, int teamID) {
-        int playerId = getNextPlayerId();
+        int playerId = getNextPlayerId();   
         
         try {
             Connection con = DatabaseConnection.openConnection();
@@ -49,9 +51,6 @@ public class AddPlayerController {
             pstmt.setString(30, secondAdultPhone2);
             pstmt.setString(31, secondAdultEmail);
             pstmt.setInt(32, teamID);
-
-            
-
             pstmt.executeUpdate();
             pstmt.close();
             con.close();
@@ -59,6 +58,30 @@ public class AddPlayerController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    
+    public static String playerExists(String firstName, String lastName, Date birthdate) {
+        try {
+            Connection con = DatabaseConnection.openConnection();
+            String query = "SELECT * FROM PlayerInformation WHERE firstName = ? AND lastName = ? AND birthdate = ?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setString(1, firstName);
+            pstmt.setString(2, lastName);
+            pstmt.setDate(3, birthdate);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                pstmt.close();
+                con.close();
+                return "Error: A player with the same first name, last name, and birthdate already exists.";
+            }
+            pstmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     public static int getNextPlayerId() {

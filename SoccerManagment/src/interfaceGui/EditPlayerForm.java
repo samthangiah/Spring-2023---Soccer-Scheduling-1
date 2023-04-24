@@ -1,6 +1,5 @@
 package interfaceGui;
 
-
 //Interface for editing player information already present
 //Add player form but with current player information 
 
@@ -14,16 +13,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import soccerManagment.DatabaseConnection;
 import soccerManagment.UpdatePlayerController;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import interfaceGui.PlayerSearch;
+import interfaceGui.AddPlayerForm;
 
 public class EditPlayerForm extends JFrame {
 
     private JPanel contentPane;
+    private int playerId;
+    private JTextField teamId;
     private JTextField firstNameField;
     private JTextField lastNameField;
     private JComboBox<String> genderBox;
@@ -38,14 +39,14 @@ public class EditPlayerForm extends JFrame {
     private JTextField zipCodeField;
     private JTextField carPoolField;
     private JTextField leagueField;
+    
     private JComboBox<String> jerseySizeBox;
     private JComboBox<String> shortSizeBox;
     private JComboBox<String> sockSizeBox;
-
     private JComboBox<String> paidBox;
+    
     private JTextField medicalInsurerField;
     private JTextArea medicalConcernsArea;
-    
     
     private JTextField adultLastNameField;
     private JTextField adultFirstNameField;
@@ -57,15 +58,13 @@ public class EditPlayerForm extends JFrame {
     private JTextField secondAdultPhone1Field;
     private JTextField secondAdultPhone2Field;
     private JTextField secondAdultEmailField;
-    private int playerId;
-    private JTextField teamId;
-
     private Connection connection;
     private PreparedStatement statement;
     private ResultSet resultSet;
     private JTextField teamIdField;
    
 
+    //Editing player form
     public EditPlayerForm(int playerId) {
         setTitle("Edit Player");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -75,6 +74,7 @@ public class EditPlayerForm extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
+        //PlayerId can no longer be set by the user/ edited. to be handled automatically
         this.playerId = playerId;        
 
         JLabel firstNameLabel = new JLabel("First Name:");
@@ -97,6 +97,7 @@ public class EditPlayerForm extends JFrame {
         genderLabel.setBounds(10, 70, 80, 25);
         contentPane.add(genderLabel);
 
+        //Design issue probleblem with "genders" in genderBox = new JComboBox<>(genders);
         String[] genders = {"M", "F"};
         genderBox = new JComboBox<>(genders);
         genderBox.setBounds(100, 70, 50, 25);
@@ -190,6 +191,7 @@ public class EditPlayerForm extends JFrame {
         jerseySizeLabel.setBounds(10, 466, 80, 25);
         contentPane.add(jerseySizeLabel);
 
+        //Design issue solution. remove ("jerseySizes")
         String[] jerseySizes = {"S", "M", "L"};
         jerseySizeBox = new JComboBox<>(jerseySizes);
         jerseySizeBox.setBounds(100, 466, 50, 25);
@@ -200,6 +202,7 @@ public class EditPlayerForm extends JFrame {
         shortSizeLabel.setBounds(10, 501, 80, 25);
         contentPane.add(shortSizeLabel);
 
+        //Design issue solution. remove ("shortSizes")
         String[] shortSizes = {"S", "M", "L"};
         shortSizeBox = new JComboBox<>(shortSizes);
         shortSizeBox.setBounds(100, 501, 50, 25);
@@ -210,16 +213,17 @@ public class EditPlayerForm extends JFrame {
         sockSizeLabel.setBounds(10, 536, 80, 25);
         contentPane.add(sockSizeLabel);
 
+        //Design issue solution. remove ("socksizes")
         String[] sockSizes = {"S", "M", "L"};
         sockSizeBox = new JComboBox<>(sockSizes);
         sockSizeBox.setBounds(100, 536, 50, 25);
         contentPane.add(sockSizeBox);
         
-     // Paid
+        // Paid
         JLabel paidLabel = new JLabel("Paid:");
         paidLabel.setBounds(10, 571, 80, 25);
         contentPane.add(paidLabel);
-        //HERE
+        //HERE, design issue with "paidOptions" in paidBox = new JComboBox<>(paidOptions);
         String[] paidOptions = {"Yes", "No"};
         paidBox = new JComboBox<>(paidOptions);
         paidBox.setBounds(100, 571, 60, 25);
@@ -243,6 +247,7 @@ public class EditPlayerForm extends JFrame {
         medicalConcernsArea.setBounds(349, 350, 200, 75);
         contentPane.add(medicalConcernsArea);
         
+        //Contact info for adult 1
         JLabel adultLastNameLabel = new JLabel("Adult Last Name:");
         adultLastNameLabel.setBounds(230, 10, 120, 25);
         contentPane.add(adultLastNameLabel);
@@ -283,6 +288,7 @@ public class EditPlayerForm extends JFrame {
         adultEmailField.setBounds(350, 130, 120, 25);
         contentPane.add(adultEmailField);
 
+        //Contact info for adult 2 
         JLabel secondAdultLastNameLabel = new JLabel("2nd Adult Last Name:");
         secondAdultLastNameLabel.setBounds(230, 160, 120, 25);
         contentPane.add(secondAdultLastNameLabel);
@@ -323,11 +329,11 @@ public class EditPlayerForm extends JFrame {
         secondAdultEmailField.setBounds(350, 285, 120, 25);
         contentPane.add(secondAdultEmailField);
         
-
         JLabel teamIdLabel = new JLabel("TeamID:");
         teamIdLabel.setBounds(230, 482, 120, 25);
         contentPane.add(teamIdLabel);
         
+        //Save button and actions
         JButton saveButton = new JButton("Save");
         saveButton.setBounds(527, 536, 80, 25);
         saveButton.addActionListener(new ActionListener() {
@@ -365,16 +371,15 @@ public class EditPlayerForm extends JFrame {
                     secondAdultPhone2Field.getText(), 
                     secondAdultEmailField.getText(),
                     Integer.parseInt(teamIdField.getText())
-
                     
                 );
                 dispose();
             }
         });
-        
-        
+          
         contentPane.add(saveButton);
         
+        //Addition of new columns from database
         JLabel lblRegistered = new JLabel("Registered:");
         lblRegistered.setBounds(10, 223, 80, 25);
         contentPane.add(lblRegistered);
@@ -387,8 +392,19 @@ public class EditPlayerForm extends JFrame {
         teamIdField.setBounds(350, 485, 120, 25);
         contentPane.add(teamIdField);
         
+        // Hide League label and text field
+        //To be handled automatically
+        leagueLabel.setVisible(false);
+        leagueField.setVisible(false);
+
+        // Hide TeamID label and text field
+        //To be handled automatically
+        teamIdLabel.setVisible(false);
+        teamIdField.setVisible(false);
+        
         loadPlayerData();
         
+        //Added listener for search button
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
@@ -399,15 +415,17 @@ public class EditPlayerForm extends JFrame {
 
     }
     
-
+    //Load selected player from player search by playerID
     private void loadPlayerData() {
         try {
+        	//select all players(one player) with matching player id field
             connection = DatabaseConnection.openConnection();
             statement = connection.prepareStatement("SELECT * FROM PlayerInformation WHERE PlayerId=?");
             statement.setInt(1, playerId);
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
+            	//get results of basic info fields 
                 firstNameField.setText(resultSet.getString("FirstName"));
                 lastNameField.setText(resultSet.getString("LastName"));
                 genderBox.setSelectedItem(resultSet.getString("Gender"));
@@ -420,6 +438,7 @@ public class EditPlayerForm extends JFrame {
                 assignedField.setText(resultSet.getString("Assigned"));
                 registeredfield.setText(resultSet.getString("Registered"));
                 
+                //Additional info fields 
                 addressField.setText(resultSet.getString("Address"));
                 cityField.setText(resultSet.getString("City"));
                 stateField.setText(resultSet.getString("State"));
@@ -433,6 +452,7 @@ public class EditPlayerForm extends JFrame {
                 medicalInsurerField.setText(resultSet.getString("MedicalInsurance"));
                 medicalConcernsArea.setText(resultSet.getString("MedicalConcerns"));
                 
+                //emergancy contact fields 
                 adultLastNameField.setText(resultSet.getString("AdultLastName"));
                 adultFirstNameField.setText(resultSet.getString("AdultFirstName"));
                 adultPhone1Field.setText(resultSet.getString("AdultPhone1"));

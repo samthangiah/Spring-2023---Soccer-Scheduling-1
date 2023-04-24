@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -85,8 +84,6 @@ public class PlayerSearch extends JPanel {
                 }
             }
         });
-        
-        
 
         // Add action listener to search button
         searchButton.addActionListener(new ActionListener() {
@@ -103,6 +100,7 @@ public class PlayerSearch extends JPanel {
                 ResultSet resultSet = null;
 
                 try {
+                	//Select player via desired last name 
                     connection = DatabaseConnection.openConnection();
                     statement = connection.prepareStatement("SELECT * FROM PlayerInformation WHERE `LastName` LIKE ?");
                     statement.setString(1, "%" + lastName + "%");
@@ -114,7 +112,8 @@ public class PlayerSearch extends JPanel {
                         String lastName1 = resultSet.getString("LastName");
                         Date birthdate = resultSet.getDate("Birthdate");
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                        String formattedBirthdate = dateFormat.format(birthdate);                        String gender = resultSet.getString("Gender");
+                        String formattedBirthdate = dateFormat.format(birthdate);                        
+                        String gender = resultSet.getString("Gender");
                         int skillLevel = resultSet.getInt("SkillLevel");
                         int seasonsPlayed = resultSet.getInt("SeasonsPlayed");
                         String registered = resultSet.getString("Registered");
@@ -154,7 +153,7 @@ public class PlayerSearch extends JPanel {
                 JFrame editPlayerFrame = new EditPlayerForm(playerId);
                 editPlayerFrame.setVisible(true);
                 
-                // Close the PlayerSearch window
+                // Close the PlayerSearch window, not used due to interfacce
                 //SwingUtilities.getWindowAncestor(editButton).dispose();
             }
         });
@@ -172,7 +171,6 @@ public class PlayerSearch extends JPanel {
 
                 // Remove the row from the table model
                 tableModel.removeRow(row);
-     
                 
             }
         });

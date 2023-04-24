@@ -23,23 +23,18 @@ public class AddPlayerForm extends JPanel {
     private JTextField playerIdField, firstNameField, lastNameField, skillLevelField, seasonsPlayedField;
     private JFormattedTextField birthdateField;
     private JComboBox<String> genderBox;
-    private JCheckBox isRegisteredBox, isAssignedBox;
     private JButton submitButton;
     private JTextField addressField;
     private JTextField cityField;
     private JTextField stateField;
     private JTextField zipCodeField;
     private JTextField carPoolField;
-    private JTextField leagueField;
-    private JTextField teamIdField;
     private JComboBox<String> jerseySizeBox;
     private JComboBox<String> shortSizeBox;
     private JComboBox<String> sockSizeBox;
-
     private JComboBox<String> paidBox;
     private JTextField medicalInsurerField;
     private JTextArea medicalConcernsArea;
-
 
     //parent/guardian information
     private JTextField adultLastNameField;
@@ -70,8 +65,7 @@ public class AddPlayerForm extends JPanel {
         mainPanel.setBounds(0, 0, 719, 400);
         add(mainPanel);
 
-        ///
-
+        //First name label and input
         JLabel label_1 = new JLabel("First Name:");
         label_1.setBounds(4, 8, 64, 21);
         mainPanel.add(label_1);
@@ -116,20 +110,6 @@ public class AddPlayerForm extends JPanel {
         seasonsPlayedField = new JTextField();
         seasonsPlayedField.setBounds(399, 31, 39, 21);
         mainPanel.add(seasonsPlayedField);
-
-        JLabel label_7 = new JLabel("Registered:");
-        label_7.setBounds(442, 31, 59, 21);
-        mainPanel.add(label_7);
-        isRegisteredBox = new JCheckBox();
-        isRegisteredBox.setBounds(501, 35, 39, 21);
-        mainPanel.add(isRegisteredBox);
-
-        JLabel label_8 = new JLabel("Assigned:");
-        label_8.setBounds(564, 31, 54, 21);
-        mainPanel.add(label_8);
-        isAssignedBox = new JCheckBox();
-        isAssignedBox.setBounds(624, 35, 39, 21);
-        mainPanel.add(isAssignedBox);
         
         JLabel label_9 = new JLabel("Address:");
         label_9.setBounds(4, 62, 54, 21);
@@ -142,21 +122,21 @@ public class AddPlayerForm extends JPanel {
         label_10.setBounds(260, 62, 31, 21);
         mainPanel.add(label_10);
         cityField = new JTextField();
-        cityField.setBounds(286, 62, 73, 21);
+        cityField.setBounds(286, 62, 120, 21);
         mainPanel.add(cityField);
         
         JLabel label_11 = new JLabel("State:");
-        label_11.setBounds(367, 62, 86, 21);
+        label_11.setBounds(435, 62, 54, 21);
         mainPanel.add(label_11);
         stateField = new JTextField();
-        stateField.setBounds(407, 62, 45, 21);
+        stateField.setBounds(468, 62, 45, 21);
         mainPanel.add(stateField);
         
         JLabel label_12 = new JLabel("Zip:");
-        label_12.setBounds(470, 62, 31, 21);
+        label_12.setBounds(523, 62, 31, 21);
         mainPanel.add(label_12);
         zipCodeField = new JTextField();
-        zipCodeField.setBounds(501, 62, 74, 21);
+        zipCodeField.setBounds(556, 62, 74, 21);
         mainPanel.add(zipCodeField);
         
         JLabel label_13 = new JLabel("Car Pool:");
@@ -165,24 +145,7 @@ public class AddPlayerForm extends JPanel {
         carPoolField = new JTextField();
         carPoolField.setBounds(64, 86, 74, 21);
         mainPanel.add(carPoolField);
-        
-        
-        
-        JLabel label_14 = new JLabel("League:");
-        label_14.setBounds(4, 117, 99, 21);
-        mainPanel.add(label_14);
-        leagueField = new JTextField();
-        leagueField.setBounds(64, 117, 39, 21);
-        mainPanel.add(leagueField);
-        
-        JLabel label_50 = new JLabel("Team:");
-        label_50.setBounds(148, 86, 99, 21);
-        mainPanel.add(label_50);
-        teamIdField = new JTextField();
-        teamIdField.setBounds(192, 86, 39, 21);
-        mainPanel.add(teamIdField);
-        
-        //////
+
         JLabel label_15 = new JLabel("Jersey Size:");
         label_15.setBounds(260, 86, 73, 21);
         mainPanel.add(label_15);
@@ -192,7 +155,7 @@ public class AddPlayerForm extends JPanel {
         DefaultComboBoxModel<String> jerseySizeModel = new DefaultComboBoxModel<>(jerseySize);
         jerseySizeBox.setModel(jerseySizeModel);
         mainPanel.add(jerseySizeBox);
-        //////
+
         JLabel label_16 = new JLabel("Short Size:");
         label_16.setBounds(417, 86, 59, 21);
         mainPanel.add(label_16);
@@ -202,7 +165,7 @@ public class AddPlayerForm extends JPanel {
         DefaultComboBoxModel<String> shortSizeModel = new DefaultComboBoxModel<>(shortSize);
         shortSizeBox.setModel(shortSizeModel);
         mainPanel.add(shortSizeBox);
-        //////
+
         
         JLabel label_17 = new JLabel("Sock Size:");
         label_17.setBounds(526, 86, 104, 21);
@@ -213,11 +176,9 @@ public class AddPlayerForm extends JPanel {
         DefaultComboBoxModel<String> sockSizeModel = new DefaultComboBoxModel<>(sockSize);
         sockSizeBox.setModel(sockSizeModel);
         mainPanel.add(sockSizeBox);
-        //////
-        
 
         JLabel label_19 = new JLabel("Paid:");
-        label_19.setBounds(643, 62, 86, 21);
+        label_19.setBounds(661, 62, 48, 21);
         mainPanel.add(label_19);
         String[] paid = {"Yes", "No"};
         paidBox = new JComboBox<>();
@@ -225,11 +186,11 @@ public class AddPlayerForm extends JPanel {
         DefaultComboBoxModel<String> paidModel = new DefaultComboBoxModel<>(paid);
         paidBox.setModel(paidModel);
         mainPanel.add(paidBox);
-        //////
+     
         
         
         JLabel label_18 = new JLabel("Medical Insurer:");
-        label_18.setBounds(4, 143, 77, 21);
+        label_18.setBounds(4, 143, 98, 21);
         mainPanel.add(label_18);
         medicalInsurerField = new JTextField();
         medicalInsurerField.setBounds(102, 143, 148, 21);
@@ -242,11 +203,7 @@ public class AddPlayerForm extends JPanel {
         medicalConcernsArea = new JTextArea();
         medicalConcernsArea.setBounds(265, 115, 444, 89);
         mainPanel.add(medicalConcernsArea);
-        
-        
-        
-        
-        //adult 
+    
         JLabel label_20 = new JLabel("Last Name:");
         label_20.setBounds(4, 208, 77, 21);
         mainPanel.add(label_20);
@@ -287,7 +244,7 @@ public class AddPlayerForm extends JPanel {
         submitButton.setBounds(2, 369, 248, 21);
       
             
-            submitButton.addActionListener(new ActionListener() {
+        submitButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // First, get all the data from the form fields
@@ -297,14 +254,14 @@ public class AddPlayerForm extends JPanel {
                     String gender = (String) genderBox.getSelectedItem();
                     int skillLevel = safeParseInt(skillLevelField.getText(), 0); 
                     int seasonsPlayed = safeParseInt(seasonsPlayedField.getText(), 0);
-                    boolean isRegistered = isRegisteredBox.isSelected();
-                    boolean isAssigned = isAssignedBox.isSelected();
+                    boolean isRegistered = false;
+                    boolean isAssigned = false;
                     String address = addressField.getText();
                     String city = cityField.getText();
                     String state = stateField.getText();
                     int zipCode = safeParseInt(zipCodeField.getText(), 0);
                     int carPool = safeParseInt(carPoolField.getText(), 0);
-                    String league = leagueField.getText();
+                    String league = "NONE";
                     String jerseySize = (String) jerseySizeBox.getSelectedItem();
                     String shortsSize = (String) shortSizeBox.getSelectedItem();
                     String sockSize = (String) sockSizeBox.getSelectedItem();
@@ -321,7 +278,7 @@ public class AddPlayerForm extends JPanel {
                     String secondAdultPhone1 = SecondAdultPhone1Field.getText();
                     String secondAdultPhone2 = SecondAdultPhone2Field.getText();
                     String secondAdultEmail = SecondAdultEmailField.getText();
-                    int teamID = safeParseInt(teamIdField.getText(), 0);
+                    int teamID = 0;
 
 
                     if(dateString == null || dateString.trim().isEmpty()) {
@@ -335,22 +292,30 @@ public class AddPlayerForm extends JPanel {
                  // Get the set of team IDs from TeamWindow
                  Set<Integer> teamIds = teamWindow.getTeamIds();
 
-                 // Call the PlayerValidator.validatePlayerData method with teamIds as the first argument
+              // Call the PlayerValidator.validatePlayerData method with teamIds as the first argument
                  List<String> errors = PlayerValidationController.validatePlayerData(teamIds, firstName, lastName, Date.valueOf(dateString), gender, skillLevel, seasonsPlayed, isRegistered, isAssigned, address, city, state, zipCode, carPool, league, jerseySize, shortsSize, sockSize, paid, medicalInsurance, medicalConcerns, adultLastName, adultFirstName, adultPhone1, adultPhone2, adultEmail, secondAdultLastName, secondAdultFirstName, secondAdultPhone1, secondAdultPhone2, secondAdultEmail, teamID);
-                    // Check if there are any errors
-                    if (errors.isEmpty()) {
-                        // If there are no errors, parse the date and call the AddPlayerController
-                        Date birthdate = Date.valueOf(dateString);
-                        
-                        AddPlayerController.addPlayer(firstName, lastName, birthdate, gender, skillLevel, seasonsPlayed, isRegistered, isAssigned, address, city, state, zipCode, carPool, league, jerseySize, shortsSize, sockSize, paid, medicalInsurance, medicalConcerns, adultLastName, adultFirstName, adultPhone1, adultPhone2, adultEmail, secondAdultLastName, secondAdultFirstName, secondAdultPhone1, secondAdultPhone2, secondAdultEmail, teamID);
-                        JOptionPane.showMessageDialog(null, "Player added successfully.");
-                    } else {
-                        
-                        String errorMessage = String.join("\n", errors);
-                        JOptionPane.showMessageDialog(null, errorMessage);
-                    }
+
+                 // Check if there are any errors
+                 if (errors.isEmpty()) {
+                     // If there are no errors, parse the date and check for duplicates
+                     Date birthdate = Date.valueOf(dateString);
+                     String playerExistsResult = AddPlayerController.playerExists(firstName, lastName, birthdate);
+
+                     if (playerExistsResult.isEmpty()) {
+                         AddPlayerController.addPlayer(firstName, lastName, birthdate, gender, skillLevel, seasonsPlayed, isRegistered, isAssigned, address, city, state, zipCode, carPool, league, jerseySize, shortsSize, sockSize, paid, medicalInsurance, medicalConcerns, adultLastName, adultFirstName, adultPhone1, adultPhone2, adultEmail, secondAdultLastName, secondAdultFirstName, secondAdultPhone1, secondAdultPhone2, secondAdultEmail, teamID);
+                         JOptionPane.showMessageDialog(null, "Player added successfully.");
+                     } else {
+                         errors.add(playerExistsResult);
+                         String errorMessage = String.join("\n", errors);
+                         JOptionPane.showMessageDialog(null, errorMessage);
+                     }
+                 } else {
+                     String errorMessage = String.join("\n", errors);
+                     JOptionPane.showMessageDialog(null, errorMessage);
+                 }
                 }
 
+                //safe parse for int values 
                 private int safeParseInt(String input, int defaultValue) {
                     try {
                         return Integer.parseInt(input);

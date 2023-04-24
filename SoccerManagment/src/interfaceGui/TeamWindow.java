@@ -13,16 +13,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
-
 import soccerManagment.DatabaseConnection;
 import interfaceGui.AddTeamForm;
 
+//Window for all teams present 
 public class TeamWindow extends JFrame {
 
     private Connection connection;
     private JTable soccerTeamsTable;
     private JScrollPane soccerTeamsTableScrollPane;
     private DefaultTableModel soccerTeamsTableModel;
+    private AddTeamForm addTeamForm;
+    private Timer timer;
 
     public TeamWindow() {
         setTitle("Team Window");
@@ -38,7 +40,7 @@ public class TeamWindow extends JFrame {
         JButton btnTab1 = new JButton("Add Team");
         leftPanel.add(btnTab1);
 
-        JButton btnTab2 = new JButton("Edit/Delete");
+        JButton btnTab2 = new JButton("Search");
         leftPanel.add(btnTab2);
 
         JButton btnOriginalTab = new JButton("Team List");
@@ -55,44 +57,41 @@ public class TeamWindow extends JFrame {
         // Create new content for Original Tab
         JPanel originalTabContent = new JPanel();
         originalTabContent.add(new JLabel("Original Content"));
-
+        addTeamForm = new AddTeamForm();
         soccerTeamsTableModel = new DefaultTableModel(new String[]{"TeamID", "Coach", "AssistantCoach", "TeamName", "PlayerIdList"}, 0);
         soccerTeamsTable = new JTable(soccerTeamsTableModel);
         soccerTeamsTableScrollPane = new JScrollPane(soccerTeamsTable);
         rightPanel.add(soccerTeamsTableScrollPane, BorderLayout.CENTER);
 
-        
-        Timer timer = new Timer(2000, new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    displaySoccerTeams(connection);
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
-        timer.start();
-        
+        //Add team button
         btnTab1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                rightPanel.remove(soccerTeamsTableScrollPane);
-                AddTeamForm addTeamForm = new AddTeamForm();
-                JPanel tab1Content = addTeamForm.getContentPane();
-                rightPanel.add(tab1Content, BorderLayout.CENTER);
+                Component currentComponent = rightPanel.getComponent(0);
+                if (currentComponent == addTeamForm.getContentPane()) {
+                    rightPanel.setComponentZOrder(currentComponent, 0);
+                } else {
+                    rightPanel.remove(currentComponent);
+                    rightPanel.add(addTeamForm.getContentPane(), BorderLayout.CENTER);
+                }
                 rightPanel.revalidate();
                 rightPanel.repaint();
             }
         });
 
+        //Search for team button
         btnTab2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Perform action for Tab 2
+                rightPanel.removeAll();
+                TeamSearch teamSearch = new TeamSearch();
+                rightPanel.add(teamSearch, BorderLayout.CENTER);
+                rightPanel.revalidate();
+                rightPanel.repaint();
             }
         });
 
+        //original team window view button
         btnOriginalTab.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Original Tab button clicked");
                 rightPanel.removeAll();
                 rightPanel.add(soccerTeamsTableScrollPane, BorderLayout.CENTER);
                 rightPanel.revalidate();
@@ -110,28 +109,46 @@ public class TeamWindow extends JFrame {
             }
         }
 
+        //end connection with closing of Window
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
+                timer.stop();
                 DatabaseConnection.closeConnection(connection);
             }
         });
+        
+        //update team list automatically
+        timer = new Timer(2000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    displaySoccerTeams(connection);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        timer.start();
     }
+    
+    //returns a set of all the team IDs currently displayed in the soccerTeamsTableModel
+    //hashSet used to store info of team IDs
     public Set<Integer> getTeamIds() {
         Set<Integer> teamIds = new HashSet<>();
         int rowCount = soccerTeamsTableModel.getRowCount();
-
+        
         for (int i = 0; i < rowCount; i++) {
             teamIds.add((Integer) soccerTeamsTableModel.getValueAt(i, 0));
         }
-
         return teamIds;
     }
     
     private void displaySoccerTeams(Connection connection) throws SQLException {
-        soccerTeamsTableModel.setRowCount(0); // Clear the table
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+
+        soccerTeamsTableModel.setRowCount(0);
 
         try {
             String sql = "SELECT * FROM SoccerTeams";
@@ -139,7 +156,8 @@ public class TeamWindow extends JFrame {
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                int teamId = resultSet.getInt("TeamID"); // Fetch the TeamID column value
+            	// Fetch the TeamID column value
+                int teamId = resultSet.getInt("TeamID"); 
                 String coach = resultSet.getString("Coach");
                 String assistantCoach = resultSet.getString("AssistantCoach");
                 String teamName = resultSet.getString("TeamName");

@@ -1,51 +1,48 @@
 package soccerManagment;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+//Deletion of selected team from team search 
 public class DeleteTeamController {
 
-    public void deleteTeam(int teamId) {
-        // SQL query to delete the team from the database
-        String deleteQuery = "DELETE FROM SoccerTeams WHERE TeamID = ?";
-
-        // SQL query to update the TeamID values of the remaining rows
-        String updateQuery = "UPDATE SoccerTeams SET TeamID = TeamID - 1 WHERE TeamID > ?";
-
+    public static void deleteTeam(int teamId) throws SQLException {
         Connection connection = null;
         PreparedStatement deleteStatement = null;
+        PreparedStatement updatePlayerStatement = null;
         PreparedStatement updateStatement = null;
 
         try {
             connection = DatabaseConnection.openConnection();
 
-            // Prepare the delete statement
-            deleteStatement = connection.prepareStatement(deleteQuery);
+            // Update the TeamId of all players in the team to 0 (unassigned)
+            updatePlayerStatement = connection.prepareStatement("UPDATE PlayerInformation SET TeamId = 0 WHERE TeamId = ?");
+            updatePlayerStatement.setInt(1, teamId);
+            updatePlayerStatement.executeUpdate();
+
+            // Delete the team with the specified TeamId
+            deleteStatement = connection.prepareStatement("DELETE FROM SoccerTeams WHERE TeamID = ?");
             deleteStatement.setInt(1, teamId);
             deleteStatement.executeUpdate();
 
-            // Prepare the update statement
-            updateStatement = connection.prepareStatement(updateQuery);
+            // Update the TeamId values of the remaining rows
+            updateStatement = connection.prepareStatement("UPDATE SoccerTeams SET TeamId = TeamId - 1 WHERE TeamId > ?");
             updateStatement.setInt(1, teamId);
             updateStatement.executeUpdate();
 
-        } catch (SQLException ex) {
-            ex.printStackTrace();
         } finally {
-            try {
-                if (deleteStatement != null) {
-                    deleteStatement.close();
-                }
-                if (updateStatement != null) {
-                    updateStatement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+            if (deleteStatement != null) {
+                deleteStatement.close();
+            }
+            if (updatePlayerStatement != null) {
+                updatePlayerStatement.close();
+            }
+            if (updateStatement != null) {
+                updateStatement.close();
+            }
+            if (connection != null) {
+                DatabaseConnection.closeConnection(connection);
             }
         }
     }

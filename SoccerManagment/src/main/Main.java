@@ -1,12 +1,12 @@
 package main;
 
 import soccerManagment.DatabaseConnection;
-import interfaceGui.MainMenu;
+import interfaceGui.PlayersList;
 
 public class Main {
     public static void main(String[] args) {
         DatabaseConnection.openConnection();
-        MainMenu mainMenu = new MainMenu();
-        mainMenu.setVisible(true);
+        PlayersList playersList = new PlayersList();
+        playersList.setVisible(true);
     }
 }
