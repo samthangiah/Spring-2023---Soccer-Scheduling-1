@@ -13,7 +13,7 @@ public class LeagueValidationController {
         errors = new ArrayList<>();
     }
 
-    public List<String> validate(String leagueName, Date lowCutOff, Date highCutOff) {
+    public List<String> validate(String leagueName, Date lowCutOff, Date highCutOff, int minPlayers, int maxPlayers) {
         errors.clear();
 
         // Validate league name
@@ -35,8 +35,14 @@ public class LeagueValidationController {
             errors.add("High cut off date must be in yyyy-MM-dd format.");
         }
 
-        // Validate number of coaches
-        
+        // Validate min and max players
+        if (minPlayers < 0 || maxPlayers < 0) {
+            errors.add("Min and max players must be non-negative integers.");
+        }
+
+        if (maxPlayers < minPlayers) {
+            errors.add("Max players must be greater than or equal to min players.");
+        }
 
         return errors;
     }

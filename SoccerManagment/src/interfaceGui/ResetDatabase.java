@@ -22,16 +22,26 @@ public class ResetDatabase {
             System.out.println("Connection established.");
 
             // Update player status in the PlayerInformation table
-            String sql = "UPDATE PlayerInformation SET Registered = ?, Assigned = ?, TeamID = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setBoolean(1, false);
-            preparedStatement.setBoolean(2, false);
-            preparedStatement.setInt(3, 0);
+            //Deal with registered assigned teamId and League name for players when database is to be reset 
+            String playerSql = "UPDATE PlayerInformation SET Registered = ?, Assigned = ?, TeamID = ?, League = ?";
+            PreparedStatement playerStatement = connection.prepareStatement(playerSql);
+            playerStatement.setBoolean(1, false);
+            playerStatement.setBoolean(2, false);
+            playerStatement.setInt(3, 0);
+            playerStatement.setString(4, "NONE");
+            int playerRowsAffected = playerStatement.executeUpdate();
+            System.out.println("Updated " + playerRowsAffected + " row(s) in the PlayerInformation table.");
 
-            int rowsAffected = preparedStatement.executeUpdate();
-            System.out.println("Updated " + rowsAffected + " row(s) in the PlayerInformation table.");
+            playerStatement.close();
 
-            preparedStatement.close();
+            // Update TeamList column in the SoccerLeague table
+            String soccerLeagueSql = "UPDATE SoccerLeague SET TeamList = ?";
+            PreparedStatement soccerLeagueStatement = connection.prepareStatement(soccerLeagueSql);
+            soccerLeagueStatement.setString(1, "");
+            int soccerLeagueRowsAffected = soccerLeagueStatement.executeUpdate();
+            System.out.println("Updated " + soccerLeagueRowsAffected + " row(s) in the SoccerLeague table.");
+
+            soccerLeagueStatement.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -40,5 +50,4 @@ public class ResetDatabase {
             DatabaseConnection.closeConnection(connection);
         }
     }
-
 }

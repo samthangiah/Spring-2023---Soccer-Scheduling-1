@@ -14,18 +14,21 @@ public class DeletePlayerController {
 	    // SQL query to update the PlayerId values of the remaining rows
 	    String updateQuery = "UPDATE PlayerInformation SET PlayerId = PlayerId - 1 WHERE PlayerId > ?";
 	    
+	    //Setting statemements to null before attempting in try loop 
 	    Connection connection = null;
 	    PreparedStatement deleteStatement = null;
 	    PreparedStatement updateStatement = null;
 
 	    try {
+	    	//Try for connection
 	        connection = DatabaseConnection.openConnection();
-	        // Prepare the delete statement
+	        
+	        // Prepare the delete statement for players
 	        deleteStatement = connection.prepareStatement(deleteQuery);
 	        deleteStatement.setInt(1, playerId);
 	        deleteStatement.executeUpdate();
 
-	        // Prepare the update statement
+	        // Prepare the update statement for players 
 	        updateStatement = connection.prepareStatement(updateQuery);
 	        updateStatement.setInt(1, playerId);
 	        updateStatement.executeUpdate();

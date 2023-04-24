@@ -4,9 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+//database location, currently stored within the folder databaseFolder
+//needs updated if database location is to be changed/renamed 
 public class DatabaseConnection {
-    private static final String URL = "jdbc:ucanaccess://databaseFolder/soccerDB6.mdb";
-
+    private static final String URL = "jdbc:ucanaccess://databaseFolder/soccerDB11.mdb";
     private DatabaseConnection() {}
 
     public static Connection openConnection() {
