@@ -1,14 +1,11 @@
 package interfaceGui;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import soccerManagment.AddPlayerController;
 import soccerManagment.PlayerValidationController;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,6 +15,8 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Set;
 
+//Form used to add players
+//Design issue reached with combo boxes for selected player when editing selected 
 public class AddPlayerForm extends JPanel {
     private JPanel mainPanel;
     private JTextField playerIdField, firstNameField, lastNameField, skillLevelField, seasonsPlayedField;
@@ -166,7 +165,6 @@ public class AddPlayerForm extends JPanel {
         shortSizeBox.setModel(shortSizeModel);
         mainPanel.add(shortSizeBox);
 
-        
         JLabel label_17 = new JLabel("Sock Size:");
         label_17.setBounds(526, 86, 104, 21);
         mainPanel.add(label_17);
@@ -185,9 +183,7 @@ public class AddPlayerForm extends JPanel {
         paidBox.setBounds(643, 80, 66, 32);
         DefaultComboBoxModel<String> paidModel = new DefaultComboBoxModel<>(paid);
         paidBox.setModel(paidModel);
-        mainPanel.add(paidBox);
-     
-        
+        mainPanel.add(paidBox);     
         
         JLabel label_18 = new JLabel("Medical Insurer:");
         label_18.setBounds(4, 143, 98, 21);
@@ -238,12 +234,11 @@ public class AddPlayerForm extends JPanel {
         adultEmailField = new JTextField();
         adultEmailField.setBounds(64, 332, 176, 21);
         mainPanel.add(adultEmailField);
-        
 
         submitButton = new JButton("Submit");
         submitButton.setBounds(2, 369, 248, 21);
-      
             
+        //Action for the submit button 
         submitButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -278,30 +273,32 @@ public class AddPlayerForm extends JPanel {
                     String secondAdultPhone1 = SecondAdultPhone1Field.getText();
                     String secondAdultPhone2 = SecondAdultPhone2Field.getText();
                     String secondAdultEmail = SecondAdultEmailField.getText();
+                    //Added players are not assigned to team, team should be 0 if newly added player
                     int teamID = 0;
 
-
+                    //Handling blank date string
+                    //To display that no date was entered if null set to 1000-10-10
                     if(dateString == null || dateString.trim().isEmpty()) {
                         dateString = "1000-10-10";
                     }
 
-
                     // Call the PlayerValidator.validatePlayerData method
                     TeamWindow teamWindow = new TeamWindow();
 
-                 // Get the set of team IDs from TeamWindow
-                 Set<Integer> teamIds = teamWindow.getTeamIds();
+                    // Get the set of team IDs from TeamWindow
+                    Set<Integer> teamIds = teamWindow.getTeamIds();
 
-              // Call the PlayerValidator.validatePlayerData method with teamIds as the first argument
-                 List<String> errors = PlayerValidationController.validatePlayerData(teamIds, firstName, lastName, Date.valueOf(dateString), gender, skillLevel, seasonsPlayed, isRegistered, isAssigned, address, city, state, zipCode, carPool, league, jerseySize, shortsSize, sockSize, paid, medicalInsurance, medicalConcerns, adultLastName, adultFirstName, adultPhone1, adultPhone2, adultEmail, secondAdultLastName, secondAdultFirstName, secondAdultPhone1, secondAdultPhone2, secondAdultEmail, teamID);
+                    // Call the PlayerValidator.validatePlayerData method with teamIds as the first argument
+                    List<String> errors = PlayerValidationController.validatePlayerData(teamIds, firstName, lastName, Date.valueOf(dateString), gender, skillLevel, seasonsPlayed, isRegistered, isAssigned, address, city, state, zipCode, carPool, league, jerseySize, shortsSize, sockSize, paid, medicalInsurance, medicalConcerns, adultLastName, adultFirstName, adultPhone1, adultPhone2, adultEmail, secondAdultLastName, secondAdultFirstName, secondAdultPhone1, secondAdultPhone2, secondAdultEmail, teamID);
 
-                 // Check if there are any errors
-                 if (errors.isEmpty()) {
+                    // Check if there are any errors
+                    if (errors.isEmpty()) {
                      // If there are no errors, parse the date and check for duplicates
                      Date birthdate = Date.valueOf(dateString);
                      String playerExistsResult = AddPlayerController.playerExists(firstName, lastName, birthdate);
 
-                     if (playerExistsResult.isEmpty()) {
+                    //Making sure player is not already present, else error message
+                    if (playerExistsResult.isEmpty()) {
                          AddPlayerController.addPlayer(firstName, lastName, birthdate, gender, skillLevel, seasonsPlayed, isRegistered, isAssigned, address, city, state, zipCode, carPool, league, jerseySize, shortsSize, sockSize, paid, medicalInsurance, medicalConcerns, adultLastName, adultFirstName, adultPhone1, adultPhone2, adultEmail, secondAdultLastName, secondAdultFirstName, secondAdultPhone1, secondAdultPhone2, secondAdultEmail, teamID);
                          JOptionPane.showMessageDialog(null, "Player added successfully.");
                      } else {
@@ -325,6 +322,9 @@ public class AddPlayerForm extends JPanel {
                 }
             });
 
+        //Addition of more labels and submit button 
+        //Didn't previous have parent sections 
+        //Submit button 
         JLabel label_25 = new JLabel();
         label_25.setBounds(0, 538, 357, 21);
         mainPanel.add(label_25);

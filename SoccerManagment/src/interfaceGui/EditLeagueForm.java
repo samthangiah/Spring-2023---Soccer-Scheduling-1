@@ -153,11 +153,12 @@ public class EditLeagueForm extends JPanel {
                             }
 
                             updateStatement.close();
-                         // Check to see if edits were actually made, if not, doesn't update
-                        } else {
+                            // Check to see if edits were actually made, if not, doesn't update
+                        	} else {
                             JOptionPane.showMessageDialog(null, "No changes were made.");
-                        }
-                    } else {
+                        	}
+                    } 
+                    else {
                         JOptionPane.showMessageDialog(null, "League not found.");
                     }
 

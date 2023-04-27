@@ -22,7 +22,6 @@ public class TeamCreationController {
 	        statement.setBoolean(3, true);
 	        statement.setBoolean(4, true);
 	        statement.setInt(5, playerId);
-
 	        statement.executeUpdate();
 
 	        // Update TeamList column in SoccerLeague table
@@ -33,6 +32,7 @@ public class TeamCreationController {
 	            String teamList = resultSet.getString("TeamList");
 	            Set<String> teamIds = new HashSet<>();
 
+	            //Checking that list isn't null or empty 
 	            if (teamList != null && !teamList.isEmpty()) {
 	                teamIds.addAll(Arrays.asList(teamList.split(",")));
 	            }
@@ -43,12 +43,12 @@ public class TeamCreationController {
 	            // Convert the set back to a comma-separated string
 	            teamList = String.join(",", teamIds);
 
+	            //Update based on strings for team
 	            statement = connection.prepareStatement("UPDATE SoccerLeague SET TeamList = ? WHERE LeagueName = ?");
 	            statement.setString(1, teamList);
 	            statement.setString(2, league);
 	            statement.executeUpdate();
 	        }
-
 	        resultSet.close();
 	        statement.close();
 	    } catch (SQLException e) {

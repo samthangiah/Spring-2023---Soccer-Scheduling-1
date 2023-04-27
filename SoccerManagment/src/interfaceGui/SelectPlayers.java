@@ -53,7 +53,6 @@ public class SelectPlayers extends JPanel {
         // Add a button to select players and create teams
         JButton createTeamsButton = new JButton("Create Teams");
         add(createTeamsButton, BorderLayout.SOUTH);
-
         createTeamsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -132,6 +131,7 @@ public class SelectPlayers extends JPanel {
             e.printStackTrace();
         }
     }
+    
     //Display players to list model 
     private void addPlayerToListModel(DefaultListModel<String> model, ResultSet resultSet) throws SQLException {
         int playerId = resultSet.getInt("PlayerId");

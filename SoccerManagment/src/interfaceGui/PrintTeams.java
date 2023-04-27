@@ -37,7 +37,7 @@ public class PrintTeams extends JPanel {
         add(scrollPane);
 
         //Initialize default table model for printing 
-        DefaultTableModel model = new DefaultTableModel(new Object[]{"Info", "Team Name", "First Name", "Last Name", "Skill Level", "Seasons Played", "Registered", "Assigned", "League"}, 0) {
+        DefaultTableModel model = new DefaultTableModel(new Object[]{"Info", "Team Name", "First Name", "Last Name", "Gender", "Skill Level", "Seasons Played", "Registered", "Assigned", "League"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -51,26 +51,31 @@ public class PrintTeams extends JPanel {
         columnModel.getColumn(1).setPreferredWidth(150); // Team Name
         columnModel.getColumn(2).setPreferredWidth(150); // First Name
         columnModel.getColumn(3).setPreferredWidth(150); // Last Name
-        columnModel.getColumn(4).setPreferredWidth(80); // Skill Level
-        columnModel.getColumn(5).setPreferredWidth(120); // Seasons Played
-        columnModel.getColumn(6).setPreferredWidth(80); // Registered
-        columnModel.getColumn(7).setPreferredWidth(80); // Assigned
-        columnModel.getColumn(8).setPreferredWidth(100); // League
+        columnModel.getColumn(4).setPreferredWidth(80); // Gender
+        columnModel.getColumn(5).setPreferredWidth(110); // Skill Level
+        columnModel.getColumn(6).setPreferredWidth(120); // Seasons Played
+        columnModel.getColumn(7).setPreferredWidth(80); // Registered
+        columnModel.getColumn(8).setPreferredWidth(80); // Assigned
+        columnModel.getColumn(9).setPreferredWidth(150); // League
 
         // Retrieve the player information from the database and add it to the table
         Connection connection = DatabaseConnection.openConnection();
         //Implementation of mapping for handling two different tables team ad player
         Map<String, Integer> teamSkillLevels = new HashMap<>();
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT t.TeamName, p.FirstName, p.LastName, p.SkillLevel, p.SeasonsPlayed, p.Registered, p.Assigned, p.League FROM PlayerInformation p INNER JOIN SoccerTeams t ON p.TeamId = t.TeamID WHERE p.TeamId > 0 ORDER BY p.League");
+        	//Statement includes values from different tables
+        	//t.table p.players
+        	PreparedStatement statement = connection.prepareStatement("SELECT t.TeamName, p.FirstName, p.LastName, p.Gender, p.SkillLevel, p.SeasonsPlayed, p.Registered, p.Assigned, p.League FROM PlayerInformation p INNER JOIN SoccerTeams t ON p.TeamId = t.TeamID WHERE p.TeamId > 0 ORDER BY p.League");
             ResultSet resultSet = statement.executeQuery();
 
             String currentLeague = null;
+            //Retrieve desired column names
             while (resultSet.next()) {
                 String league = resultSet.getString("League");
                 String teamName = resultSet.getString("TeamName");
                 String firstName = resultSet.getString("FirstName");
                 String lastName = resultSet.getString("LastName");
+                String gender = resultSet.getString("Gender");
                 int skillLevel = resultSet.getInt("SkillLevel");
                 int seasonsPlayed = resultSet.getInt("SeasonsPlayed");
                 boolean registered = resultSet.getBoolean("Registered");
@@ -84,7 +89,7 @@ public class PrintTeams extends JPanel {
                 }
 
                 //Add row to list for printing layout 
-                model.addRow(new Object[]{"", teamName, firstName, lastName, skillLevel, seasonsPlayed, registered, assigned, league});
+                model.addRow(new Object[]{"", teamName, firstName, lastName, gender, skillLevel, seasonsPlayed, registered, assigned, league});
             }
 
             resultSet.close();
@@ -109,7 +114,8 @@ public class PrintTeams extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 CardLayout cardLayout = (CardLayout) getParent().getLayout();
-                cardLayout.show(getParent(), "leagueFormReport"); // Assumes "leagueFormReport" is the name you used when adding the LeagueFormReport panel
+                // "leagueFormReport" is the name used when adding the LeagueFormReport panel
+                cardLayout.show(getParent(), "leagueFormReport"); 
             }
         });
         add(backButton);
@@ -131,9 +137,7 @@ public class PrintTeams extends JPanel {
                     JOptionPane.showMessageDialog(null, "Printing Failed", "Print Preview", JOptionPane.ERROR_MESSAGE);
                 }
             }
-        });
-   
+        }); 
         add(previewButton);
-    }
-    
+    } 
 }

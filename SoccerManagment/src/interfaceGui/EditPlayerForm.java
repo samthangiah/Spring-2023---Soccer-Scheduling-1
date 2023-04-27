@@ -1,8 +1,5 @@
 package interfaceGui;
 
-//Interface for editing player information already present
-//Add player form but with current player information 
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
@@ -20,6 +17,8 @@ import java.awt.event.WindowEvent;
 import interfaceGui.PlayerSearch;
 import interfaceGui.AddPlayerForm;
 
+//Interface for editing player information already present
+//Add player form but with current player information 
 public class EditPlayerForm extends JFrame {
 
     private JPanel contentPane;
@@ -97,9 +96,9 @@ public class EditPlayerForm extends JFrame {
         genderLabel.setBounds(10, 70, 80, 25);
         contentPane.add(genderLabel);
 
-        //Design issue probleblem with "genders" in genderBox = new JComboBox<>(genders);
+        //Design issue problem with "genders" in genderBox = new JComboBox<>(genders);
         String[] genders = {"M", "F"};
-        genderBox = new JComboBox<>(genders);
+        genderBox = new JComboBox<String>(genders);
         genderBox.setBounds(100, 70, 50, 25);
         contentPane.add(genderBox);
 
@@ -412,7 +411,6 @@ public class EditPlayerForm extends JFrame {
                 playerSearch.setVisible(true);
             }
         });
-
     }
     
     //Load selected player from player search by playerID
@@ -464,7 +462,6 @@ public class EditPlayerForm extends JFrame {
                 secondAdultPhone2Field.setText(resultSet.getString("SecondAdultPhone2"));
                 secondAdultEmailField.setText(resultSet.getString("SecondAdultEmail"));
                 teamIdField.setText(String.valueOf(resultSet.getInt("TeamId")));
-
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -482,8 +479,6 @@ public class EditPlayerForm extends JFrame {
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-
         }
-    }
-    
+    }  
 }

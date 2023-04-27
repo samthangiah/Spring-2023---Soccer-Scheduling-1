@@ -41,7 +41,7 @@ public class LeagueValidationController {
         }
 
         if (maxPlayers < minPlayers) {
-            errors.add("Max players must be greater than or equal to min players.");
+            errors.add("Max players must be greater than min players.");
         }
 
         return errors;

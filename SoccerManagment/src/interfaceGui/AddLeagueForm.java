@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 
 //For for adding league to database
 public class AddLeagueForm extends JPanel {
-	//Private fields
     private JTextField leagueNameField;
     private JTextField lowCutOffField;
     private JTextField highCutOffField;
@@ -104,8 +103,7 @@ public class AddLeagueForm extends JPanel {
         }
 
         try {
-            Connection connection = DatabaseConnection.openConnection();
-            
+            Connection connection = DatabaseConnection.openConnection();     
             // Updated SQl statement including all league columns
             //SoccerLeague
             PreparedStatement statement = connection.prepareStatement("INSERT INTO SoccerLeague (LeagueName, HighBDCutOff, LowBDCutOff, NumCoaches, MinPlayers, MaxPlayers, TeamList) VALUES (?, ?, ?, ?, ?, ?, ?)");
@@ -116,7 +114,6 @@ public class AddLeagueForm extends JPanel {
             statement.setInt(5, minPlayers); // Set MinPlayers value
             statement.setInt(6, maxPlayers); // Set MaxPlayers value
             statement.setString(7, ""); // Set TeamList value to an empty string
-
             statement.executeUpdate();
             statement.close();
             connection.close();

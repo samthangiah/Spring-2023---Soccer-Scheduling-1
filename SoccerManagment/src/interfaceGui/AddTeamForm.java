@@ -90,7 +90,8 @@ public class AddTeamForm {
         mainPanel.add(assistantCoachField);
         mainPanel.add(teamNameLabel);
         mainPanel.add(teamNameField);
-        //Reset
+        
+        //Reset form
         JLabel label = new JLabel("");
         label.setBounds(0, 180, 225, 60);
         mainPanel.add(label);
@@ -159,8 +160,8 @@ public class AddTeamForm {
         return input.matches("[a-zA-Z ]+");
     }
     
-    //getting the next availible id for teams since it is not in the database as being autonumber 
-    //this is because of errors arising with autonumber and deletion of teams
+    //getting the next available id for teams since it is not in the database as being autonumber 
+    //this is because of errors arising with auto number and deletion of teams
     private int getNextTeamId() throws SQLException {
         String sql = "SELECT MAX(TeamID) FROM SoccerTeams";
 

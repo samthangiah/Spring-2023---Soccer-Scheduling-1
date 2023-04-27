@@ -162,10 +162,13 @@ public class TeamSearch extends JPanel {
                     int playerId = playerResultSet.getInt("PlayerId");
                     playerIdListBuilder.append(playerId).append(", ");
                 }
+                
                 // Remove the trailing comma and space
-                String playerIdList = playerIdListBuilder.toString().replaceAll(", $", ""); 
+                String playerIdList = playerIdListBuilder.toString().replaceAll(", $", "");
+                
                 // Include teamId in the row data
                 searchResultsTableModel.addRow(new Object[]{teamId, coach, assistantCoach, teamNameResult, playerIdList}); 
+                
                 // Close the playerStatement and playerResultSet
                 playerResultSet.close();
                 playerStatement.close();
