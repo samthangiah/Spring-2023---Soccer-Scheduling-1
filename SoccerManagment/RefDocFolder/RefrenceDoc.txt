@@ -23,6 +23,8 @@ https://docs.oracle.com/javase/tutorial/uiswing/misc/printtext.html
 String modification
 https://www.baeldung.com/java-remove-trailing-characters
 https://www.geeksforgeeks.org/stringbuilder-class-in-java-with-examples/
+https://www.javatpoint.com/java-string-replaceall
+
 Layouts 
 https://chortle.ccsu.edu/java5/notes/chap56/ch56_9.html
 https://docs.oracle.com/javase/7/docs/api/java/awt/BorderLayout.html
@@ -33,6 +35,17 @@ https://docs.oracle.com/javase/tutorial/uiswing/layout/gridbag.html
 https://docs.oracle.com/javase/7/docs/api/java/awt/GridBagConstraints.html
 https://learn.microsoft.com/en-us/dotnet/api/system.string.split?view=net-8.0
 
+
+Cell editing
+http://www.java2s.com/Code/Java/Swing-JFC/extendsDefaultTableModeltocreateyourowntablemodelandbuildtablefromthat.htm
+https://stackoverflow.com/questions/43106351/creating-a-custom-table-model-to-provide-data-from-arraylist
+https://www.developer.com/java/java-tables/
+https://docs.oracle.com/javase/tutorial/uiswing/events/actionlistener.html
+https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html 
+https://www.tabnine.com/code/java/classes/javax.swing.text.PlainDocument
+http://www.java2s.com/example/java/swing/create-and-use-custom-plaindocument-for-jtextfield.html
+
 Mapping for multiple tables 
 https://gist.github.com/FigT/f5ba0d14a2d4092a0b3745185cc1190e
 https://www.baeldung.com/java-hashmap
+http://www.java2s.com/Tutorial/Java/0240__Swing/SortingJTableElements.htm

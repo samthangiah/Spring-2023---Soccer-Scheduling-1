@@ -12,10 +12,10 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 import soccerManagment.DatabaseConnection;
 
-//Used by edit player form 
-//Repetitive action taken by 
+//Used to update player info 
 public class UpdatePlayerController {
 
+	//handles all columns used for players 
     public static void updatePlayerData(int playerId, String firstName, String lastName, String gender, String birthdate, int skillLevel, String seasonsPlayed, String assigned, String registered, String address, String city, String state, int zipCode, int carPool, String league, String jerseySize, String shortSize, String sockSize, String paid, String medicalInsurer, String medicalConcerns, String adultLastName, String adultFirstName, String adultPhone1, String adultPhone2, String adultEmail, String secondAdultLastName, String secondAdultFirstName, String secondAdultPhone1, String secondAdultPhone2, String secondAdultEmail, int teamId) {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -87,6 +87,7 @@ public class UpdatePlayerController {
         }
     }
 
+    //to hold the team IDs return them as a set to check for a player is valid
     private static Set<Integer> getAllTeamIds() {
         Set<Integer> teamIds = new HashSet<>();
         Connection connection = null;

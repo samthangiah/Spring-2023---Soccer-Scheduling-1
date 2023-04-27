@@ -70,7 +70,7 @@ public class LeagueSearch extends JPanel {
                     int minPlayers = (int) searchResultsTable.getValueAt(selectedRow, 4);
                     int maxPlayers = (int) searchResultsTable.getValueAt(selectedRow, 5);
                     
-                    // Format the dates as strings
+                    //Format the dates as strings
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                     String lowDBCutOffStr = dateFormat.format(lowDBCutOff);
                     String highDBCutOffStr = dateFormat.format(highDBCutOff);
@@ -100,7 +100,7 @@ public class LeagueSearch extends JPanel {
             }
         });
     }
-
+    //Refresh search results
     public void refreshSearchResults() {
         searchLeagues();
     }
@@ -126,7 +126,6 @@ public class LeagueSearch extends JPanel {
 
                 searchResultsTableModel.addRow(new Object[]{leagueName, lowDBCutOff, highDBCutOff, numCoaches, minPlayers, maxPlayers});
             }
-
             resultSet.close();
             statement.close();
             connection.close();

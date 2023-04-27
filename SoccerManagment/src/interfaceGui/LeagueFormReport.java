@@ -15,11 +15,11 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import interfaceGui.PrintTeams;
-
 import soccerManagment.DatabaseConnection;
 
+//Used to create league and has print option 
+//Printing not done within this file, instead PrintTeams
 public class LeagueFormReport extends JPanel {
-
     private Connection connection;
     private JComboBox<String> leagueComboBox;
     private JList<String> allTeamsList;
@@ -50,13 +50,12 @@ public class LeagueFormReport extends JPanel {
         maxPlayersLabel = new JLabel("Max Players:");
         maxPlayersLabel.setBounds(10, 135, 128, 21);
         add(maxPlayersLabel);
-
-        
         
         JLabel allTeamsLabel = new JLabel("All teams:");
         allTeamsLabel.setBounds(172, 27, 102, 13);
         add(allTeamsLabel);
 
+        //Default list for display of print table, acts as a preview 
         DefaultListModel<String> allTeamsListModel = new DefaultListModel<>();
         JScrollPane allTeamsListScrollPane = new JScrollPane();
         allTeamsListScrollPane.setBounds(148, 50, 278, 182);
@@ -71,16 +70,19 @@ public class LeagueFormReport extends JPanel {
                     }
                 });
 
+        //Populate list based on selection, can not submit until selected players 
         populateAllTeamsListModel(allTeamsListModel);
         submitButton = new JButton("Select Players");
         submitButton.setBounds(223, 242, 128, 21);
         submitButton.setEnabled(false);
         add(submitButton);
         
+        //Addition of print button
         JButton btnPrintButton = new JButton("Print Button");
         btnPrintButton.setBounds(463, 50, 102, 39);
         add(btnPrintButton);
 
+        //Select league to be used for team player addition
         leagueComboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -89,6 +91,7 @@ public class LeagueFormReport extends JPanel {
             }
         });
         
+        //Print button listener 
         btnPrintButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -103,6 +106,7 @@ public class LeagueFormReport extends JPanel {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	
                 Object selectedLeague = leagueComboBox.getSelectedItem();
                 if (selectedLeague != null) {
                     String selectedLeagueString = selectedLeague.toString();
@@ -154,7 +158,6 @@ public class LeagueFormReport extends JPanel {
                     minPlayersLabel.setText("Min Players: " + minPlayers);
                     maxPlayersLabel.setText("Max Players: " + maxPlayers);
                 }
-
                 resultSet.close();
                 statement.close();
             } catch (SQLException e) {
@@ -162,15 +165,16 @@ public class LeagueFormReport extends JPanel {
             }
         }
     }
-    
-
+    //Update submit button to enabled when appropriate 
     private void updateSubmitButtonStatus() {
         boolean isSelected = leagueComboBox.getSelectedIndex() != -1 && allTeamsList.getSelectedIndex() != -1;
         submitButton.setEnabled(isSelected);
     }
 
-    //get availible leagues 
+    //get available leagues 
     private void populateLeagueComboBox() {
+    	//added blank option first present when selecting league
+    	leagueComboBox.addItem("");
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM SoccerLeague");
             ResultSet resultSet = statement.executeQuery();
@@ -179,7 +183,6 @@ public class LeagueFormReport extends JPanel {
                 String leagueName = resultSet.getString("LeagueName");
                 leagueComboBox.addItem(leagueName);
             }
-
             resultSet.close();
             statement.close();
         } catch (SQLException e) {
@@ -187,7 +190,7 @@ public class LeagueFormReport extends JPanel {
         }
     }
 
-    //get availible teams 
+    //get available teams 
     private void populateAllTeamsListModel(DefaultListModel<String> model) {
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM SoccerTeams");

@@ -29,7 +29,6 @@ public class EditTeamForm extends JPanel {
         this.teamId = teamId;
         this.previousPanel = previousPanel;
         setLayout(new BorderLayout());
-
         // Connect to the database
         connection = DatabaseConnection.openConnection();
 
@@ -64,10 +63,8 @@ public class EditTeamForm extends JPanel {
                 assistantCoachField = new JTextField(assistantCoach);
                 inputPanel.add(assistantCoachField);
             }
-
             resultSet.close();
             statement.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error fetching team information");
@@ -102,6 +99,7 @@ public class EditTeamForm extends JPanel {
         buttonsPanel.add(submitButton);
     }
 
+    //called for updates 
     private void updateTeam() {
         try {
             String sql = "UPDATE SoccerTeams SET TeamName=?, Coach=?, AssistantCoach=? WHERE TeamID=?";

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import soccerManagment.DatabaseConnection;
 
+//Player deletion used by search and reg. list 
 public class DeletePlayerController {
     
 	public void deletePlayer(int playerId) {
@@ -32,6 +33,7 @@ public class DeletePlayerController {
 	        updateStatement = connection.prepareStatement(updateQuery);
 	        updateStatement.setInt(1, playerId);
 	        updateStatement.executeUpdate();
+	        
 	    } catch (SQLException ex) {
 	        ex.printStackTrace();
 	    } finally {

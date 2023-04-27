@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import soccerManagment.DatabaseConnection;
 import soccerManagment.DeletePlayerController;
 
+//Used to search for players 
 public class PlayerSearch extends JPanel {
 
     private static final long serialVersionUID = 1L;
@@ -61,6 +62,7 @@ public class PlayerSearch extends JPanel {
         scrollPane.setBounds(10, 50, 780, 440);
         add(scrollPane);
         
+        //Delete but set to disabled for search 
         deleteButton = new JButton("Delete");
         deleteButton.setEnabled(false);
         deleteButton.setBounds(541, 10, 100, 25);
@@ -91,9 +93,7 @@ public class PlayerSearch extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 // Clear the table
                 tableModel.setRowCount(0);
-
                 String lastName = lastNameField.getText();
-
                 // Fetch the data from the database using the last name
                 Connection connection = null;
                 PreparedStatement statement = null;
